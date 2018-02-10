@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  rebus.servicehost.manager.testing:
+    image: rebus.servicehost.manager.testing
+    build:
+      context: .
+      dockerfile: Rebus.ServiceHost.Manager.Testing\Dockerfile
+
+  rebus.servicehost.api.testing:
+    image: rebus.servicehost.api.testing
+    build:
+      context: .
+      dockerfile: Rebus.ServiceHost.Api.Testing\Dockerfile
+

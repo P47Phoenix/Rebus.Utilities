@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  rebus.servicehost.manager.testing:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  rebus.servicehost.api.testing:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+networks:
+  default:
+    external:
+      name: nat
+
