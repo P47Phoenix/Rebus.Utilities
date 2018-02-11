@@ -12,4 +12,5 @@ services:
     build:
       context: .
       dockerfile: Rebus.ServiceHost.Api.Testing\Dockerfile
-
+  rabbitmq:
+    image: micdenny/rabbitmq-windows

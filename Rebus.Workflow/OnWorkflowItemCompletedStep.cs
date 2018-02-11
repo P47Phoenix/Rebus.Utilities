@@ -8,12 +8,12 @@ using Rebus.Pipeline;
 
 namespace Rebus.Workflow
 {
-    public class OnWorkflowItemCompleted : IIncomingStep
+    public class OnWorkflowItemCompletedStep : IIncomingStep
     {
         private readonly MessageContext m_messageContext;
         private readonly IBus m_bus;
 
-        public OnWorkflowItemCompleted(MessageContext messageContext, IBus bus)
+        public OnWorkflowItemCompletedStep(MessageContext messageContext, IBus bus)
         {
             m_messageContext = messageContext;
             m_bus = bus;
@@ -25,14 +25,14 @@ namespace Rebus.Workflow
             
             var key = m_messageContext.GetKey();
 
-            var nextMessage = m_messageContext.Get(key);
+            var nextMessage = m_messageContext.Get<object>(key);
 
             if (nextMessage == null)
             {
                 return;
             }
 
-            await m_bus.Send(nextMessage, new Dictionary<string, string>()
+            var headers = new Dictionary<string, string>()
             {
                 {
                     Headers.CorrelationId,
@@ -42,7 +42,17 @@ namespace Rebus.Workflow
                     Headers.MessageId,
                     m_messageContext.Headers[Headers.MessageId]
                 }
-            });
+            };
+
+            foreach (var headerKeyValue in m_messageContext.Headers)
+            {
+                if (headerKeyValue.Key.StartsWith(MessageContextHelpers.DataKey))
+                {
+                    headers.Add(headerKeyValue.Key, headerKeyValue.Value);
+                }
+            }
+
+            await m_bus.Send(nextMessage, headers);
         }
     }
 }

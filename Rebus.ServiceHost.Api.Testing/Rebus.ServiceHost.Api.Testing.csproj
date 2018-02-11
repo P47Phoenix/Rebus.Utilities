@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Rebus" Version="4.2.1" />
+    <PackageReference Include="Rebus.RabbitMq" Version="4.4.0" />
     <PackageReference Include="Rebus.ServiceProvider" Version="4.0.1" />
   </ItemGroup>
 
@@ -20,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Untilities.Api\Untilities.Api.csproj" />
     <ProjectReference Include="..\Rebus.Api.Testing\Rebus.Api.Testing.csproj" />
+    <ProjectReference Include="..\Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj" />
+    <ProjectReference Include="..\Rebus.Manager.Testing\Rebus.Manager.Testing.csproj" />
   </ItemGroup>
 
 </Project>

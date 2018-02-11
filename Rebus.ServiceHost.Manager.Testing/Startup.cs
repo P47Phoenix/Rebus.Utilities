@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Untilities.Api;
 
 namespace Rebus.ServiceHost.Manager.Testing
 {
@@ -33,6 +34,8 @@ namespace Rebus.ServiceHost.Manager.Testing
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<CorrelationIdMiddleware>();
 
             app.UseMvc();
         }

@@ -1,19 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.Workflow", "Rebus.Workflow\Rebus.Workflow.csproj", "{EE94ABE6-89FA-4246-9ED9-AD394CB28BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.Workflow", "Rebus.Workflow\Rebus.Workflow.csproj", "{EE94ABE6-89FA-4246-9ED9-AD394CB28BCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.Manager.Testing", "Rebus.Manager.Testing\Rebus.Manager.Testing.csproj", "{00247BD2-20BE-4156-B9BB-100C9105BE45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.Manager.Testing", "Rebus.Manager.Testing\Rebus.Manager.Testing.csproj", "{00247BD2-20BE-4156-B9BB-100C9105BE45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.Api.Testing", "Rebus.Api.Testing\Rebus.Api.Testing.csproj", "{E4FC17C1-A596-45EC-B6B8-11CDEF7F11E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.Api.Testing", "Rebus.Api.Testing\Rebus.Api.Testing.csproj", "{E4FC17C1-A596-45EC-B6B8-11CDEF7F11E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.ServiceHost.Manager.Testing", "Rebus.ServiceHost.Manager.Testing\Rebus.ServiceHost.Manager.Testing.csproj", "{B343EF4C-C345-469F-90D4-62FC136DFD02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.ServiceHost.Manager.Testing", "Rebus.ServiceHost.Manager.Testing\Rebus.ServiceHost.Manager.Testing.csproj", "{B343EF4C-C345-469F-90D4-62FC136DFD02}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BDA99735-8A3C-46F2-BC0D-95CF629C5E99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.ServiceHost.Api.Testing", "Rebus.ServiceHost.Api.Testing\Rebus.ServiceHost.Api.Testing.csproj", "{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.ServiceHost.Api.Testing", "Rebus.ServiceHost.Api.Testing\Rebus.ServiceHost.Api.Testing.csproj", "{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Untilities.Api", "..\Untilities.Api\Untilities.Api.csproj", "{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.AspNetCoreExtensions", "Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj", "{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
