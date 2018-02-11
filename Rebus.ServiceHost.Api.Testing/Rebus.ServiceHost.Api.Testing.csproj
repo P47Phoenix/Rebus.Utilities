@@ -5,12 +5,17 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.2.0" />
     <PackageReference Include="Rebus" Version="4.2.1" />
     <PackageReference Include="Rebus.RabbitMq" Version="4.4.0" />
     <PackageReference Include="Rebus.ServiceProvider" Version="4.0.1" />
@@ -21,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Untilities.Api\Untilities.Api.csproj" />
+    <ProjectReference Include="..\..\Untilities.Api\Utilities.Api.csproj" />
     <ProjectReference Include="..\Rebus.Api.Testing\Rebus.Api.Testing.csproj" />
     <ProjectReference Include="..\Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj" />
     <ProjectReference Include="..\Rebus.Manager.Testing\Rebus.Manager.Testing.csproj" />

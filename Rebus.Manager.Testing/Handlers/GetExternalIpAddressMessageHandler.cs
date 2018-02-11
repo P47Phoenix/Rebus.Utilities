@@ -29,8 +29,7 @@ namespace Rebus.Manager.Testing.Handlers
 
             if (IPAddress.TryParse(body, out IPAddress ipAddress))
             {
-                var stateDataKey = MessageContextHelpers.GetStateDataKey(StateDataKeys.IpAddress);
-                m_messageContext.Set(stateDataKey, ipAddress.ToString());
+                m_messageContext.SetStateData(StateDataKeys.IpAddress, ipAddress.ToString());
             }
         }
     }

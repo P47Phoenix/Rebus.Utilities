@@ -15,9 +15,17 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.ServiceHost.Api.Testing", "Rebus.ServiceHost.Api.Testing\Rebus.ServiceHost.Api.Testing.csproj", "{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Untilities.Api", "..\Untilities.Api\Untilities.Api.csproj", "{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Api", "..\Untilities.Api\Utilities.Api.csproj", "{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.AspNetCoreExtensions", "Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj", "{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{BE450D04-B138-4462-B4F8-FB4A42FED9D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{14D07C00-66F6-4689-8B3F-BCF6B8D09061}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manager", "Manager", "{3207D246-4CDE-4A1C-AA44-38DAE9EAA85D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{25DD5B7A-77C1-4F31-8D9C-A82DD4D379E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +68,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE94ABE6-89FA-4246-9ED9-AD394CB28BCC} = {BE450D04-B138-4462-B4F8-FB4A42FED9D0}
+		{00247BD2-20BE-4156-B9BB-100C9105BE45} = {3207D246-4CDE-4A1C-AA44-38DAE9EAA85D}
+		{E4FC17C1-A596-45EC-B6B8-11CDEF7F11E0} = {14D07C00-66F6-4689-8B3F-BCF6B8D09061}
+		{B343EF4C-C345-469F-90D4-62FC136DFD02} = {25DD5B7A-77C1-4F31-8D9C-A82DD4D379E8}
+		{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74} = {25DD5B7A-77C1-4F31-8D9C-A82DD4D379E8}
+		{15E7ED91-FAC2-4E36-9024-56F9C682BAA5} = {BE450D04-B138-4462-B4F8-FB4A42FED9D0}
+		{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA} = {BE450D04-B138-4462-B4F8-FB4A42FED9D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F4F6241-9D1F-45B9-984A-8EF3885E4F5F}

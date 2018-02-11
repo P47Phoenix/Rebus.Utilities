@@ -51,7 +51,12 @@ namespace Rebus.Workflow
 
         internal static void Set<T>(this IMessageContext messageContext, string key, T data)
         {
-            messageContext.Headers[key] = m_objectSerializer.SerializeToString(data);
+            messageContext.Headers[key] = SerializeToString(data);
+        }
+
+        public static string SerializeToString<T>(T data)
+        {
+            return m_objectSerializer.SerializeToString(data);
         }
 
         internal static string GetKey(this IMessageContext messageContext)

@@ -4,7 +4,7 @@ namespace Rebus.Workflow
 {
     public interface IFlowBuilder
     {
-        void AddStep(object message);
+        void AddStep<T>(T message);
         void AddStateData<T>(string key, T data);
         Task Send();
     }
