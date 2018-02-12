@@ -12,18 +12,16 @@ namespace Rebus.AspNetCoreExtensions
     [StepDocumentation("This step sets the correlation id on the message to match the TraceIdentifier on the incoming request")]
     public class AspNetCorrelationIdStep : IOutgoingStep
     {
-        private readonly IServiceProvider m_serviceProvider;
+        private readonly IHttpContextAccessor m_httpContextAccessor;
 
-        public AspNetCorrelationIdStep(IServiceCollection serviceCollection)
+        public AspNetCorrelationIdStep(IHttpContextAccessor httpContextAccessor)
         {
-            m_serviceProvider = serviceCollection.BuildServiceProvider();
+            m_httpContextAccessor = httpContextAccessor;
         }
 
         public async Task Process(OutgoingStepContext outgoingStepContext, Func<Task> next)
         {
-            var httpContextAccessor = m_serviceProvider.GetService<IHttpContextAccessor>();
-
-            HttpContext httpContext = httpContextAccessor.HttpContext;
+            HttpContext httpContext = m_httpContextAccessor.HttpContext;
 
             if (httpContext != null)
             {

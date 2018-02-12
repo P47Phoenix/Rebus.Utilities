@@ -14,13 +14,6 @@ namespace Rebus.Manager.Testing.Handlers
 {
     public class GetExternalIpAddressMessageHandler : IHandleMessages<GetExternalIpAddressMessage>
     {
-        private readonly MessageContext m_messageContext;
-
-        public GetExternalIpAddressMessageHandler(MessageContext messageContext)
-        {
-            m_messageContext = messageContext;
-        }
-
         public async Task Handle(GetExternalIpAddressMessage message)
         {
             var result = await new HttpClient().GetAsync("http://bot.whatismyipaddress.com/");
@@ -29,7 +22,7 @@ namespace Rebus.Manager.Testing.Handlers
 
             if (IPAddress.TryParse(body, out IPAddress ipAddress))
             {
-                m_messageContext.SetStateData(StateDataKeys.IpAddress, ipAddress.ToString());
+                MessageContext.Current.SetStateData(StateDataKeys.IpAddress, ipAddress.ToString());
             }
         }
     }

@@ -8,6 +8,7 @@ using Rebus.Pipeline;
 
 namespace Rebus.Workflow
 {
+    [StepDocumentation("Start the next step in the flow if the last one completed successfully.")]
     public class OnWorkflowItemCompletedStep : IIncomingStep
     {
         private readonly MessageContext m_messageContext;
