@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Rebus.ServiceHost.Api.Testing/Rebus.ServiceHost.Api.Testing.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Rebus.ServiceHost.Manager.Testing/Rebus.ServiceHost.Manager.Testing.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

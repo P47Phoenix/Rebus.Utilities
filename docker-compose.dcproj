@@ -6,7 +6,7 @@
     <ProjectGuid>bda99735-8a3c-46f2-bc0d-95cf629c5e99</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://{ServiceIPAddress}/api/values</DockerServiceUrl>
-    <DockerServiceName>rebus.servicehost.manager.testing</DockerServiceName>
+    <DockerServiceName>rebus.servicehost.api.testing</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
