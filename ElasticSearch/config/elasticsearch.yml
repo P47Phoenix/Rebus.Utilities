@@ -5,8 +5,8 @@ network.host: 0.0.0.0
 discovery.zen.minimum_master_nodes: 1
 
 path:
-    data: g:\
-
+    data: c:\elasticsearch\data
+    logs: c:\elasticsearch\logs
 
 # ======================== Elasticsearch Configuration =========================
 #

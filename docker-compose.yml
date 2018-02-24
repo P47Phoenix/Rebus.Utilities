@@ -1,24 +1,9 @@
 version: '3'
 
 services:
-  rebus.servicehost.manager.testing:
-    image: rebus.servicehost.manager.testing
-    build:
-      context: .
-      dockerfile: Rebus.ServiceHost.Manager.Testing\Dockerfile
-    depends_on: 
-      - rabbitmq
-      - elasticsearch
-  rebus.servicehost.api.testing:
-    image: rebus.servicehost.api.testing
-    build:
-      context: .
-      dockerfile: Rebus.ServiceHost.Api.Testing\Dockerfile
-    depends_on: 
-      - rabbitmq
-      - elasticsearch
   rabbitmq:
     image: micdenny/rabbitmq-windows
+
   elasticsearch:
     image: p47phoenix/elasticsearch
     build:
@@ -26,6 +11,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9200:9200"
+
   kibana:
     image: p47phoenix/kibana
     build:
@@ -35,6 +21,7 @@ services:
       - "5601:5601"
     depends_on: 
       - elasticsearch
+
   cerebro:
     image: p47phoenix/cerebro
     build:
@@ -43,4 +30,22 @@ services:
     ports:
       - "9000:9000"
     depends_on: 
+      - elasticsearch
+
+  rebus.servicehost.manager.testing:
+    image: rebus.servicehost.manager.testing
+    build:
+      context: .
+      dockerfile: Rebus.ServiceHost.Manager.Testing\Dockerfile
+    depends_on: 
+      - rabbitmq
+      - elasticsearch
+
+  rebus.servicehost.api.testing:
+    image: rebus.servicehost.api.testing
+    build:
+      context: .
+      dockerfile: Rebus.ServiceHost.Api.Testing\Dockerfile
+    depends_on: 
+      - rabbitmq
       - elasticsearch

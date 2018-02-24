@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace Rebus.ServiceHost.Api.Testing
 {
@@ -19,6 +21,15 @@ namespace Rebus.ServiceHost.Api.Testing
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseSerilog((context, configuration) =>
+                {
+                    var elasticsearchSinkOptions = new ElasticsearchSinkOptions(new Uri("http://elasticsearch:9200"))
+                    {
+                        IndexFormat = "logs-{0:yyyy-MM-dd}"
+                    };
+                    configuration
+                        .WriteTo.Elasticsearch(elasticsearchSinkOptions);
+                })
                 .UseStartup<Startup>()
                 .Build();
     }

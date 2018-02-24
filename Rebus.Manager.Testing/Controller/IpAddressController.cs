@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Rebus.Manager.Testing
+namespace Rebus.Manager.Testing.Controller
 {
     [ApiVersion("1")]
-    public class IpAddressController : Controller
+    public class IpAddressController : Microsoft.AspNetCore.Mvc.Controller
     {
         internal static IPAddress ExternalIpAddress { get; set; }
 

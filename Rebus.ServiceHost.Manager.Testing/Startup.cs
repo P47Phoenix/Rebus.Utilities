@@ -20,6 +20,7 @@ using Rebus.AspNetCoreExtensions;
 using Rebus.Config;
 using Rebus.Manager.Testing;
 using Rebus.Manager.Testing.Contracts.Messages;
+using Rebus.Manager.Testing.Controller;
 using Rebus.Manager.Testing.Handlers;
 using Rebus.Pipeline;
 using Rebus.Pipeline.Send;
@@ -27,8 +28,8 @@ using Rebus.RabbitMq;
 using Rebus.Retry.Simple;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
-using Untilities.Api;
 using Utilities.Api;
 
 namespace Rebus.ServiceHost.Manager.Testing
@@ -117,6 +118,7 @@ namespace Rebus.ServiceHost.Manager.Testing
 
             services.AddRebus(configurer =>
             {
+                configurer.Logging(loggingConfigurer => loggingConfigurer.Serilog(Log.Logger));
                 configurer.Options(optionsConfigurer =>
                 {
                     optionsConfigurer.SetMaxParallelism(1);

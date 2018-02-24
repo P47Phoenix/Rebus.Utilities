@@ -33,8 +33,8 @@ using Rebus.ServiceProvider;
 using Rebus.Timeouts;
 using Rebus.Workflow;
 using Swashbuckle.AspNetCore.Swagger;
-using Untilities.Api;
 using Utilities.Api;
+using Serilog;
 
 namespace Rebus.ServiceHost.Api.Testing
 {
@@ -121,13 +121,14 @@ namespace Rebus.ServiceHost.Api.Testing
 
             services.AddRebus(configurer =>
             {
+                configurer.Logging(loggingConfigurer => loggingConfigurer.Serilog(Log.Logger));
                 configurer.Options(optionsConfigurer =>
                 {
                     optionsConfigurer.SetMaxParallelism(1);
                     optionsConfigurer.SetNumberOfWorkers(1);
                     optionsConfigurer.LogPipeline(true);
-                    
-                    optionsConfigurer.Register(c=> new AspNetCorrelationIdStep(new HttpContextAccessor()));
+
+                    optionsConfigurer.Register(c => new AspNetCorrelationIdStep(new HttpContextAccessor()));
 
                     optionsConfigurer.Decorate<IPipeline>(context => new PipelineStepInjector(context.Get<IPipeline>())
                         .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep)));
