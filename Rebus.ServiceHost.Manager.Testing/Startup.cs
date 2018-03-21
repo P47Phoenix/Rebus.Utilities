@@ -17,17 +17,20 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Rebus.AspNetCoreExtensions;
+using Rebus.Bus;
 using Rebus.Config;
 using Rebus.Manager.Testing;
 using Rebus.Manager.Testing.Contracts.Messages;
 using Rebus.Manager.Testing.Controller;
 using Rebus.Manager.Testing.Handlers;
 using Rebus.Pipeline;
+using Rebus.Pipeline.Receive;
 using Rebus.Pipeline.Send;
 using Rebus.RabbitMq;
 using Rebus.Retry.Simple;
 using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
+using Rebus.Workflow;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 using Utilities.Api;
@@ -118,7 +121,10 @@ namespace Rebus.ServiceHost.Manager.Testing
 
             services.AddRebus(configurer =>
             {
-                configurer.Logging(loggingConfigurer => loggingConfigurer.Serilog(Log.Logger));
+                configurer.Logging(loggingConfigurer =>
+                {
+                    loggingConfigurer.Serilog(Log.Logger);
+                });
                 configurer.Options(optionsConfigurer =>
                 {
                     optionsConfigurer.SetMaxParallelism(1);
@@ -129,8 +135,16 @@ namespace Rebus.ServiceHost.Manager.Testing
 
                     optionsConfigurer.Register(c=> new AspNetCorrelationIdStep(new HttpContextAccessor()));
 
-                    optionsConfigurer.Decorate<IPipeline>(context => new PipelineStepInjector(context.Get<IPipeline>())
-                        .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep)));
+                    optionsConfigurer.Register(c=> new OnWorkflowItemCompletedStep(c.Get<IBus>()));
+
+                    optionsConfigurer
+                        .Decorate<IPipeline>(context =>
+                        {
+                            var pipeline = context.Get<IPipeline>();
+                            return new PipelineStepInjector(pipeline)
+                                .OnReceive(context.Get<OnWorkflowItemCompletedStep>(), PipelineRelativePosition.After, typeof(DispatchIncomingMessageStep))
+                                .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep));
+                        });
                 });
 
                 configurer.Routing(standardConfigurer => standardConfigurer

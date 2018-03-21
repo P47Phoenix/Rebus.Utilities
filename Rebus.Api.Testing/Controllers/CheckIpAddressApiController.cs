@@ -24,6 +24,7 @@ namespace Rebus.Api.Testing.Controllers
             var builder = m_flowBuilderFactory.Create();
 
             builder.AddStep(new GetExternalIpAddressMessage());
+            builder.AddStep(new SetExternalIpAddressMessage());
 
             await builder.Send();
 

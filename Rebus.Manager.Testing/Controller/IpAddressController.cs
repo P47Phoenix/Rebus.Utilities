@@ -15,7 +15,7 @@ namespace Rebus.Manager.Testing.Controller
         {
             return new OkObjectResult(new
             {
-                ExternalIpAddress = ExternalIpAddress.ToString()
+                ExternalIpAddress = ExternalIpAddress?.ToString()
             });
         }
     }

@@ -11,22 +11,22 @@ namespace Rebus.Workflow
     [StepDocumentation("Start the next step in the flow if the last one completed successfully.")]
     public class OnWorkflowItemCompletedStep : IIncomingStep
     {
-        private readonly MessageContext m_messageContext;
         private readonly IBus m_bus;
 
-        public OnWorkflowItemCompletedStep(MessageContext messageContext, IBus bus)
+        public OnWorkflowItemCompletedStep(IBus bus)
         {
-            m_messageContext = messageContext;
             m_bus = bus;
         }
 
         public async Task Process(IncomingStepContext context, Func<Task> next)
         {
             await next();
+         
+            var messageContext = MessageContext.Current;
             
-            var key = m_messageContext.GetKey();
+            var key = messageContext.GetKey();
 
-            var nextMessage = m_messageContext.Get<object>(key);
+            var nextMessage = messageContext.Get<object>(key);
 
             if (nextMessage == null)
             {
@@ -37,15 +37,15 @@ namespace Rebus.Workflow
             {
                 {
                     Headers.CorrelationId,
-                    m_messageContext.Headers[Headers.CorrelationId]
+                    messageContext.Headers[Headers.CorrelationId]
                 },
                 {
                     Headers.MessageId,
-                    m_messageContext.Headers[Headers.MessageId]
+                    messageContext.Headers[Headers.MessageId]
                 }
             };
 
-            foreach (var headerKeyValue in m_messageContext.Headers)
+            foreach (var headerKeyValue in messageContext.Headers)
             {
                 if (headerKeyValue.Key.StartsWith(MessageContextHelpers.DataKey))
                 {
