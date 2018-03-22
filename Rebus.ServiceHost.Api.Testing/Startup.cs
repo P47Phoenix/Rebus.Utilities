@@ -88,7 +88,7 @@ namespace Rebus.ServiceHost.Api.Testing
                     };
 
                     jsonSettings.Converters.Add(new IsoDateTimeConverter());
-                    jsonSettings.Converters.Add(new StringEnumConverter()
+                    jsonSettings.Converters.Add(new StringEnumConverter
                     {
                         AllowIntegerValues = false,
                         CamelCaseText = true
@@ -130,8 +130,9 @@ namespace Rebus.ServiceHost.Api.Testing
 
                     optionsConfigurer.Register(c => new AspNetCorrelationIdStep(new HttpContextAccessor()));
 
-                    optionsConfigurer.Decorate<IPipeline>(context => new PipelineStepInjector(context.Get<IPipeline>())
-                        .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep)));
+                    optionsConfigurer
+                        .Decorate<IPipeline>(context => new PipelineStepInjector(context.Get<IPipeline>())
+                            .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep)));
                 });
 
                 configurer.Routing(standardConfigurer => standardConfigurer

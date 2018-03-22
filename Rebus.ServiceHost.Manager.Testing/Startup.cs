@@ -121,6 +121,25 @@ namespace Rebus.ServiceHost.Manager.Testing
 
             services.AddRebus(configurer =>
             {
+                configurer.Options(optionsConfigurer =>
+                {
+                    optionsConfigurer
+                        .Decorate<IPipeline>(context =>
+                        {
+                            var onWorkflowItemCompletedStep = new OnWorkflowItemCompletedStep(context.Get<IBus>());
+                            var pipeline = context.Get<IPipeline>();
+                            return new PipelineStepInjector(pipeline)
+                                .OnReceive(onWorkflowItemCompletedStep, PipelineRelativePosition.Before, typeof(DispatchIncomingMessageStep));
+                        });
+
+                    optionsConfigurer.SetMaxParallelism(1);
+                    optionsConfigurer.SetNumberOfWorkers(1);
+                    optionsConfigurer.LogPipeline(true);
+
+                    optionsConfigurer.SimpleRetryStrategy();
+                    
+                });
+                
                 configurer.Logging(loggingConfigurer =>
                 {
                     loggingConfigurer.Serilog(Log.Logger);
@@ -140,28 +159,6 @@ namespace Rebus.ServiceHost.Manager.Testing
                         }
                     };
                     standardConfigurer.UseRabbitMq(connectionEndpoints, "TestWorkFlow");
-                });
-                
-                configurer.Options(optionsConfigurer =>
-                {
-                    optionsConfigurer
-                        .Decorate<IPipeline>(context =>
-                        {
-                            var onWorkflowItemCompletedStep = new OnWorkflowItemCompletedStep(context.Get<IBus>());
-                            var pipeline = context.Get<IPipeline>();
-                            return new PipelineStepInjector(pipeline)
-                                .OnReceive(onWorkflowItemCompletedStep, PipelineRelativePosition.Before, typeof(DispatchIncomingMessageStep));
-                        });
-
-                    optionsConfigurer.SetMaxParallelism(1);
-                    optionsConfigurer.SetNumberOfWorkers(1);
-                    optionsConfigurer.LogPipeline(true);
-
-                    optionsConfigurer.SimpleRetryStrategy();
-
-                    optionsConfigurer.Register(c=> new AspNetCorrelationIdStep(new HttpContextAccessor()));
-
-                    
                 });
 
 
