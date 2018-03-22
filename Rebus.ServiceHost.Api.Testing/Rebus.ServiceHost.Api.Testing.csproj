@@ -43,10 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Untilities.Api\Utilities.Api.csproj" />
     <ProjectReference Include="..\Rebus.Api.Testing\Rebus.Api.Testing.csproj" />
     <ProjectReference Include="..\Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj" />
     <ProjectReference Include="..\Rebus.Manager.Testing\Rebus.Manager.Testing.csproj" />
+    <ProjectReference Include="..\Untilities.Api\Utilities.Api.csproj" />
   </ItemGroup>
 
 </Project>
