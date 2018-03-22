@@ -125,27 +125,6 @@ namespace Rebus.ServiceHost.Manager.Testing
                 {
                     loggingConfigurer.Serilog(Log.Logger);
                 });
-                configurer.Options(optionsConfigurer =>
-                {
-                    optionsConfigurer.SetMaxParallelism(1);
-                    optionsConfigurer.SetNumberOfWorkers(1);
-                    optionsConfigurer.LogPipeline(true);
-
-                    optionsConfigurer.SimpleRetryStrategy();
-
-                    optionsConfigurer.Register(c=> new AspNetCorrelationIdStep(new HttpContextAccessor()));
-
-                    optionsConfigurer.Register(c=> new OnWorkflowItemCompletedStep(c.Get<IBus>()));
-
-                    optionsConfigurer
-                        .Decorate<IPipeline>(context =>
-                        {
-                            var pipeline = context.Get<IPipeline>();
-                            return new PipelineStepInjector(pipeline)
-                                .OnReceive(context.Get<OnWorkflowItemCompletedStep>(), PipelineRelativePosition.After, typeof(DispatchIncomingMessageStep))
-                                .OnSend(context.Get<AspNetCorrelationIdStep>(), PipelineRelativePosition.Before, typeof(SendOutgoingMessageStep));
-                        });
-                });
 
                 configurer.Routing(standardConfigurer => standardConfigurer
                     .TypeBased()
@@ -161,6 +140,28 @@ namespace Rebus.ServiceHost.Manager.Testing
                         }
                     };
                     standardConfigurer.UseRabbitMq(connectionEndpoints, "TestWorkFlow");
+                });
+                
+                configurer.Options(optionsConfigurer =>
+                {
+                    optionsConfigurer
+                        .Decorate<IPipeline>(context =>
+                        {
+                            var onWorkflowItemCompletedStep = new OnWorkflowItemCompletedStep(context.Get<IBus>());
+                            var pipeline = context.Get<IPipeline>();
+                            return new PipelineStepInjector(pipeline)
+                                .OnReceive(onWorkflowItemCompletedStep, PipelineRelativePosition.Before, typeof(DispatchIncomingMessageStep));
+                        });
+
+                    optionsConfigurer.SetMaxParallelism(1);
+                    optionsConfigurer.SetNumberOfWorkers(1);
+                    optionsConfigurer.LogPipeline(true);
+
+                    optionsConfigurer.SimpleRetryStrategy();
+
+                    optionsConfigurer.Register(c=> new AspNetCorrelationIdStep(new HttpContextAccessor()));
+
+                    
                 });
 
 

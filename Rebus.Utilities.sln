@@ -15,7 +15,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rebus.ServiceHost.Api.Testing", "Rebus.ServiceHost.Api.Testing\Rebus.ServiceHost.Api.Testing.csproj", "{A9ED1FF4-7DFC-4CE8-9409-B84B9D1A7D74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Api", "..\Untilities.Api\Utilities.Api.csproj", "{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Api", "Untilities.Api\Utilities.Api.csproj", "{15E7ED91-FAC2-4E36-9024-56F9C682BAA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rebus.AspNetCoreExtensions", "Rebus.AspNetCoreExtensions\Rebus.AspNetCoreExtensions.csproj", "{81A1E758-37FC-4C4B-84EC-93B1FEEBECCA}"
 EndProject
