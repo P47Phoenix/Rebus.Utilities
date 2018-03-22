@@ -18,7 +18,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Rebus.AspNetCoreExtensions;
 using Rebus.Bus;
+using Rebus.Compression;
 using Rebus.Config;
+using Rebus.Encryption;
 using Rebus.Manager.Testing;
 using Rebus.Manager.Testing.Contracts.Messages;
 using Rebus.Manager.Testing.Controller;
@@ -121,24 +123,6 @@ namespace Rebus.ServiceHost.Manager.Testing
 
             services.AddRebus(configurer =>
             {
-                configurer.Options(optionsConfigurer =>
-                {
-                    optionsConfigurer
-                        .Decorate<IPipeline>(context =>
-                        {
-                            var onWorkflowItemCompletedStep = new OnWorkflowItemCompletedStep(context.Get<IBus>());
-                            var pipeline = context.Get<IPipeline>();
-                            return new PipelineStepInjector(pipeline)
-                                .OnReceive(onWorkflowItemCompletedStep, PipelineRelativePosition.Before, typeof(DispatchIncomingMessageStep));
-                        });
-
-                    optionsConfigurer.SetMaxParallelism(1);
-                    optionsConfigurer.SetNumberOfWorkers(1);
-                    optionsConfigurer.LogPipeline(true);
-
-                    optionsConfigurer.SimpleRetryStrategy();
-                    
-                });
                 
                 configurer.Logging(loggingConfigurer =>
                 {
@@ -161,6 +145,24 @@ namespace Rebus.ServiceHost.Manager.Testing
                     standardConfigurer.UseRabbitMq(connectionEndpoints, "TestWorkFlow");
                 });
 
+                configurer.Options(optionsConfigurer =>
+                {
+                    optionsConfigurer.SetMaxParallelism(1);
+                    optionsConfigurer.SetNumberOfWorkers(1);
+                    optionsConfigurer.EnableCompression();
+                    optionsConfigurer
+                        .Decorate<IPipeline>(context =>
+                        {
+                            var onWorkflowItemCompletedStep = new OnWorkflowItemCompletedStep(context.Get<IBus>());
+                            var pipeline = context.Get<IPipeline>();
+                            return new PipelineStepInjector(pipeline)
+                                .OnReceive(onWorkflowItemCompletedStep, PipelineRelativePosition.Before, typeof(DispatchIncomingMessageStep));
+                        });
+
+                    optionsConfigurer.LogPipeline(true);
+                    
+                });
+                var bus = configurer.Start();
 
                 return configurer;
             });
